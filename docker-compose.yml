@@ -1,0 +1,71 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # One-shot init container: pulls the LLM into the shared ollama-models
+  # volume, then exits. Keeps `docker compose up` a single command instead
+  # of requiring a manual `docker compose exec ollama ollama pull ...` step.
+  ollama-pull:
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: ollama:11434
+    entrypoint: ["ollama", "pull", "${OLLAMA_MODEL:-qwen2.5:0.5b}"]
+
+  backend:
+    build: ./backend
+    depends_on:
+      ollama:
+        condition: service_healthy
+      ollama-pull:
+        condition: service_completed_successfully
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:0.5b}
+      EMBEDDING_MODEL_NAME: ${EMBEDDING_MODEL_NAME:-sentence-transformers/all-MiniLM-L6-v2}
+      CHROMA_PATH: /data/chroma
+      KB_DIR: /app/data/kb
+      TOP_K: "4"
+      INTENT_MODEL_DIR: /app/app/classifier/model
+      BANDIT_STATE_PATH: /data/bandit_state.json
+      DB_PATH: /data/copilot.db
+      CORS_ORIGINS: http://localhost:8080
+    volumes:
+      - backend-data:/data
+      - hf-cache:/root/.cache/huggingface
+      # mount fine-tuned intent classifier weights if you've trained them
+      - ./backend/app/classifier/model:/app/app/classifier/model:ro
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  ollama-models:
+  backend-data:
+  hf-cache:

@@ -1,0 +1,90 @@
+# Heads up: SQLite and the embedded Chroma store both only really work with
+# one writer. replicas > 1 here is just to show the Deployment/Service/HPA
+# setup working, not something I'd actually run this way. For real
+# multi-replica use you'd want Postgres and a networked vector DB instead
+# (Chroma server mode, Qdrant, pgvector, etc).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: nimbus-copilot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          # built locally: `docker build -t nimbus-copilot-backend:local ./backend`
+          # then loaded into your cluster (e.g. `kind load docker-image ...`)
+          image: nimbus-copilot-backend:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: http
+          envFrom:
+            - configMapRef:
+                name: copilot-config
+          volumeMounts:
+            - name: backend-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: 250m
+              memory: 768Mi
+            limits:
+              cpu: "1"
+              memory: 2Gi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+      volumes:
+        - name: backend-data
+          persistentVolumeClaim:
+            claimName: backend-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: nimbus-copilot
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 8000
+      targetPort: 8000
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-hpa
+  namespace: nimbus-copilot
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70

@@ -1,0 +1,12 @@
+# Minimal deps to run the test suite, using fakes/dependency overrides for
+# the heavy ML components (see tests/conftest.py). Does not include
+# chromadb/sentence-transformers/torch/transformers since those are only
+# needed to run the full service (see requirements.txt).
+fastapi==0.115.6
+pydantic==2.10.4
+pydantic-settings==2.7.1
+httpx==0.28.1
+numpy==2.2.1
+prometheus-client==0.21.1
+pytest==8.3.4
+pytest-asyncio==0.25.1

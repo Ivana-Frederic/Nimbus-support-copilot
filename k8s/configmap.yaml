@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: copilot-config
+  namespace: nimbus-copilot
+data:
+  OLLAMA_BASE_URL: "http://ollama:11434"
+  OLLAMA_MODEL: "qwen2.5:0.5b"
+  EMBEDDING_MODEL_NAME: "sentence-transformers/all-MiniLM-L6-v2"
+  CHROMA_PATH: "/data/chroma"
+  KB_DIR: "/app/data/kb"
+  TOP_K: "4"
+  INTENT_MODEL_DIR: "/app/app/classifier/model"
+  BANDIT_STATE_PATH: "/data/bandit_state.json"
+  DB_PATH: "/data/copilot.db"
+  CORS_ORIGINS: "http://localhost:8080"
+  LOG_LEVEL: "info"

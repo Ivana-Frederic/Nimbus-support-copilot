@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nimbus Support Copilot</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        Nimbus Support Copilot
+      </div>
+      <label class="internals-toggle">
+        <input type="checkbox" id="show-internals" checked />
+        Show AI internals
+      </label>
+    </header>
+
+    <main id="chat" class="chat" aria-live="polite"></main>
+
+    <form id="composer" class="composer">
+      <input
+        id="message-input"
+        type="text"
+        autocomplete="off"
+        placeholder="Ask about billing, the API, an outage, security, onboarding..."
+        maxlength="2000"
+      />
+      <button type="submit" id="send-btn">Send</button>
+    </form>
+  </div>
+
+  <template id="tpl-assistant-message">
+    <div class="message assistant">
+      <div class="bubble">
+        <div class="answer"></div>
+        <div class="internals" hidden>
+          <div class="badges">
+            <span class="badge intent"></span>
+            <span class="badge arm" title="RL-selected retrieval re-ranking strategy"></span>
+            <span class="badge latency"></span>
+          </div>
+          <details class="sources">
+            <summary>Sources</summary>
+            <ul class="source-list"></ul>
+          </details>
+        </div>
+        <div class="feedback">
+          <button class="fb-btn fb-up" title="Good answer">👍</button>
+          <button class="fb-btn fb-down" title="Not helpful">👎</button>
+          <span class="fb-ack" hidden>Thanks for the feedback!</span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

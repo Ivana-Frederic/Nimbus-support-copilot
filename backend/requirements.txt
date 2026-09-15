@@ -1,0 +1,21 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.1
+httpx==0.28.1
+numpy==2.2.1
+prometheus-client==0.21.1
+python-multipart==0.0.20
+
+# RAG stack (transformer embedding model + vector store)
+# chromadb must stay >=0.6 here: 0.5.x pins tokenizers<=0.20.3, which
+# conflicts with transformers==4.47.1's tokenizers>=0.21 requirement below.
+chromadb==0.6.3
+sentence-transformers==3.3.1
+
+# Intent classifier fine-tuning / inference (transformer)
+torch==2.5.1
+transformers==4.47.1
+
+# only needed to run scripts/train_intent_classifier.py
+scikit-learn==1.6.0

@@ -1,0 +1,10 @@
+.venv*/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+tests/
+.chroma/
+data/bandit_state.json
+data/copilot.db
+app/classifier/model/_checkpoints/

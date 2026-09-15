@@ -1,0 +1,31 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# ML artifacts (fetched/trained, not committed)
+backend/app/classifier/model/
+backend/.chroma/
+backend/data/bandit_state.json
+backend/data/copilot.db
+*.pt
+*.bin
+*.safetensors
+
+# node / frontend build (if added later)
+node_modules/
+dist/
+
+# env files
+.env
+.env.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+*.log

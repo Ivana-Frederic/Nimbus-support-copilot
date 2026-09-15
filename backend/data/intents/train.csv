@@ -1,0 +1,85 @@
+text,label
+Why was I charged twice this month?,billing
+I want to see my last invoice,billing
+Can you explain the charges on my account?,billing
+How do I update my credit card on file?,billing
+"My subscription price went up, why?",billing
+Where can I download my billing history?,billing
+Is there a discount for annual billing?,billing
+I was billed for a plan I already cancelled,billing
+How much does the Pro plan cost per month?,billing
+Can I get an itemized receipt for tax purposes?,billing
+Why does my invoice show an extra seat charge?,billing
+I need to change my billing email address,billing
+Do you offer volume discounts for teams?,billing
+My card was declined during checkout,billing
+How do I switch from monthly to annual billing?,billing
+I'm getting a 500 error when calling the /users endpoint,technical_api
+What's the rate limit on the API?,technical_api
+How do I authenticate API requests?,technical_api
+My webhook isn't firing when an event happens,technical_api
+Can you show me an example curl request for the API?,technical_api
+The SDK throws a timeout error intermittently,technical_api
+How do I generate a new API token?,technical_api
+What does error code 429 mean?,technical_api
+Is there a sandbox environment for testing the API?,technical_api
+My integration stopped working after the last update,technical_api
+How do I paginate through the /orders endpoint?,technical_api
+The API response is missing a field it used to return,technical_api
+What's the maximum payload size for API requests?,technical_api
+Do you have API client libraries for Python?,technical_api
+I'm seeing CORS errors when calling the API from my frontend,technical_api
+Is the service down right now?,outage
+"I can't log in, is there an outage?",outage
+When will the current incident be resolved?,outage
+Are you experiencing downtime in the EU region?,outage
+My dashboard has been unreachable for 20 minutes,outage
+Is this a known issue affecting all customers?,outage
+Where can I check the live status page?,outage
+Why are all my requests timing out right now?,outage
+Has there been an incident reported today?,outage
+The app has been degraded since this morning,outage
+I keep getting 503 errors across the whole platform,outage
+Do you have a status history for past incidents?,outage
+How do I enable two-factor authentication?,security
+Was there a data breach recently?,security
+Are you SOC 2 compliant?,security
+How is my data encrypted at rest?,security
+I think my account was compromised,security
+Can I set up single sign-on with our identity provider?,security
+What's your policy on GDPR data deletion requests?,security
+How do I reset my password securely?,security
+Do you support IP allow-listing for admin access?,security
+Where can I find your security whitepaper?,security
+How do you handle PII in your logs?,security
+Can I audit who accessed my account?,security
+How do I get started with Nimbus Cloud?,onboarding
+What are the first steps after signing up?,onboarding
+Is there a setup wizard for new accounts?,onboarding
+How do I invite my team members?,onboarding
+Where is the quickstart guide?,onboarding
+"I just created my account, what should I do next?",onboarding
+How do I connect my first data source?,onboarding
+Is there an onboarding checklist?,onboarding
+Do you have a tutorial for first-time users?,onboarding
+How long does initial setup usually take?,onboarding
+I want a refund for last month's charge,refund
+How do I cancel my subscription?,refund
+"Can I get my money back, I'm not satisfied?",refund
+What's your refund policy?,refund
+"I cancelled but was still charged, can I get a refund?",refund
+How long do refunds take to process?,refund
+I want to downgrade and get a prorated refund,refund
+Can I cancel my trial before it converts to paid?,refund
+Is the refund policy different for annual plans?,refund
+I'd like to close my account and get a refund,refund
+What's the weather like today?,other
+Can you tell me a joke?,other
+"Thanks, that was helpful!",other
+Who founded this company?,other
+Do you have an office in Berlin?,other
+What time zone are your support hours in?,other
+Can I speak to a human agent?,other
+Just wanted to say your support is great,other
+Do you sponsor any open source projects?,other
+"Hello, is anyone there?",other
